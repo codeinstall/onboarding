@@ -40,5 +40,5 @@ workflows:
     jobs:
       - package
       - test-case-1:
-        requires:
-          - package
+          requires:
+            - package
