@@ -5,7 +5,8 @@ orbs:
 
 nightly:
   triggers:
-    cron: "2 * * * *"
+    - cron: "2 * * * *   "
+    - cron: "0 20 * * *"
 
 jobs:
   build:
@@ -19,6 +20,19 @@ jobs:
       - run:
           name: Run Test
           command: mvn -Dmaven.test.skip=true package
+
+  test-case-1:
+    docker:
+      - image: circleci/openjdk:stretch
+    steps:
+      - checkout
+      - run:
+          name: Grant Permission
+          command: chmod +x mvnw
+      - run:
+          name: Run Test
+          command: mvn test
+
 
 workflows:
   version: 2.1
