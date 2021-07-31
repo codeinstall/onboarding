@@ -2,6 +2,8 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.1.0
+  jira: circleci/jira@1.2.2
+  slack: circleci/slack@4.4.2
 
 nightly:
   triggers:
@@ -20,6 +22,9 @@ jobs:
       - run:
           name: Run Test
           command: mvn -Dmaven.test.skip=true package
+      - slack/status:
+          failure_message: Build Failure
+          success_message: Build Success
 
   test-case-1:
     docker:
@@ -88,7 +93,8 @@ workflows:
   version: 2.1
   auto-flow:
     jobs:
-      - package
+      - package:
+          context: ALERTS
       - test-case-1:
           requires:
             - package
