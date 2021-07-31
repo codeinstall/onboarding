@@ -15,3 +15,9 @@ jobs:
       - run:
           name: Run Test
           command: mvn -Dmaven.test.skip=true package
+
+workflows:
+  version: 2.1
+  auto-flow:
+    jobs:
+      - build
