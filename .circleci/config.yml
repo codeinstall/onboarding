@@ -39,4 +39,6 @@ workflows:
   auto-flow:
     jobs:
       - package
-      - test-case-1
+      - test-case-1:
+        requires:
+          - package
