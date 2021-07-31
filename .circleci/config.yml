@@ -44,8 +44,32 @@ jobs:
           name: Install jest
           command: npm install --save-dev jest
       - run:
-          name: NPM Test
+          name: Node Test ((skipping))
           command: echo "npm run test"
+
+  test-case-3:
+    docker:
+      - image: circleci/openjdk:stretch
+    steps:
+      - checkout
+      - run:
+          name: Grant Permission
+          command: chmod +x mvnw
+      - run:
+          name: Java Test ((skipping))
+          command: mvn test
+  
+  test-case-4:
+    docker:
+      - image: circleci/openjdk:stretch
+    steps:
+      - checkout
+      - run:
+          name: Grant Permission
+          command: chmod +x mvnw
+      - run:
+          name: Java Test ((skipping))
+          command: mvn test
 
 
 workflows:
@@ -57,5 +81,11 @@ workflows:
           requires:
             - package
       - test-case-2:
+          requires:
+            - package
+      - test-case-3:
+          requires:
+            - package
+      - test-case-4:
           requires:
             - package
