@@ -71,6 +71,18 @@ jobs:
           name: Java Test ((skipping))
           command: mvn test
 
+  deploy:
+    docker:
+      - image: circleci/openjdk:stretch
+    steps:
+      - checkout
+      - run:
+          name: Grant Permission
+          command: chmod +x mvnw
+      - run:
+          name: Deploy Test ((skipping))
+          command: mvn test
+
 
 workflows:
   version: 2.1
@@ -89,3 +101,9 @@ workflows:
       - test-case-4:
           requires:
             - package
+      - deploy:
+          requires:
+            - test-case-1
+            - test-case-2
+            - test-case-3
+            - test-case-4
