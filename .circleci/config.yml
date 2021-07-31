@@ -9,7 +9,7 @@ nightly:
     - cron: "0 20 * * *"
 
 jobs:
-  build:
+  package:
     docker:
       - image: circleci/openjdk:stretch
     steps:
@@ -38,4 +38,5 @@ workflows:
   version: 2.1
   auto-flow:
     jobs:
-      - build
+      - package
+      - test-case-1
