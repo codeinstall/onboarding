@@ -33,6 +33,20 @@ jobs:
           name: Run Test
           command: mvn test
 
+  test-case-2:
+    docker:
+      - image: cimg/node:12.6
+    steps:
+      - checkout
+      - node/install-packages:
+         override-ci-command: npm install
+      - run:
+          name: Install jest
+          command: npm install --save-dev jest
+      - run:
+          name: NPM Test
+          command: npm run test
+
 
 workflows:
   version: 2.1
@@ -40,5 +54,8 @@ workflows:
     jobs:
       - package
       - test-case-1:
+          requires:
+            - package
+      - test-case-2:
           requires:
             - package
